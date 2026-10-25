@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Self-Learning Maze Explorer (Non-Deterministic)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Control Header -->
+        <header class="game-header">
+            <div class="brand">
+                <span class="brand-icon">🧠</span>
+                <span class="brand-title">Self-Learning Agents</span>
+            </div>
+
+            <!-- Exploration Sliders: Number of Agents & Speed -->
+            <div class="control-sliders">
+                <div class="slider-group">
+                    <label for="agentCountInput">Agents: <strong id="agentCountVal">3</strong></label>
+                    <input type="range" id="agentCountInput" min="1" max="15" value="3" step="1">
+                </div>
+                <div class="slider-group">
+                    <label for="speedInput">Speed: <strong id="speedVal">15 steps/s</strong></label>
+                    <input type="range" id="speedInput" min="1" max="60" value="15" step="1">
+                </div>
+            </div>
+
+            <!-- Real-time Autonomous Learning Stats -->
+            <div class="hud-stats">
+                <div class="stat-pill">
+                    <span class="stat-label">Stuck / Restarts:</span>
+                    <span id="statRestarts" class="stat-value">0</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Discovered:</span>
+                    <span id="statExplored" class="stat-value">0%</span>
+                </div>
+                <div class="stat-pill">
+                    <span class="stat-label">Status:</span>
+                    <span id="statStatus" class="stat-value badge-exploring">Learning...</span>
+                </div>
+            </div>
+
+            <!-- Execution & Maze Controls -->
+            <div class="control-bar">
+                <button id="playPauseBtn" class="btn btn-primary" title="Play or Pause Exploration">⏸ Pause</button>
+                <button id="stepBtn" class="btn btn-secondary" title="Advance Single Step">⏭ Step</button>
+                <button id="resetMemoryBtn" class="btn btn-secondary" title="Clear learned memory and restart agents from scratch">↺ Reset Memory</button>
+                <div class="size-buttons">
+                    <button class="btn btn-size" data-size="easy">15×15</button>
+                    <button class="btn btn-size active" data-size="medium">21×21</button>
+                    <button class="btn btn-size" data-size="hard">29×29</button>
+                </div>
+                <button id="newMazeBtn" class="btn btn-accent" title="Generate New Maze">🔄 New Maze</button>
+            </div>
+        </header>
+
+        <!-- Fixed Stationary Maze Viewport -->
+        <main class="game-viewport">
+            <canvas id="gameCanvas"></canvas>
+
+            <!-- Goal Discovered Banner -->
+            <div id="winBanner" class="win-banner hidden">
+                <span id="winBannerText">🎉 Path to Exit Discovered through Self-Learning!</span>
+            </div>
+
+            <!-- Learning Legend Overlay -->
+            <div class="legend-panel">
+                <div class="legend-item"><span class="legend-dot dot-agent"></span> Active Agents (Stochastic)</div>
+                <div class="legend-item"><span class="legend-dot dot-deadend"></span> Learned Dead-Ends (Negative Q)</div>
+                <div class="legend-item"><span class="legend-dot dot-visited"></span> Discovered Corridors</div>
+                <div class="legend-item"><span class="legend-dot dot-goal"></span> Discovered Goal Path</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="audio.js"></script>
+    <script src="particles.js"></script>
+    <script src="maze.js"></script>
+    <script src="game.js"></script>
+</body>
+</html>
